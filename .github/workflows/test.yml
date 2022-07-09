@@ -6,7 +6,7 @@ on:
       - dev
 
 jobs:
-  deploy:
+  test-github-secrets:
     runs-on: self-host
     steps:
       - name: Check all variables
