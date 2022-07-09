@@ -1,0 +1,17 @@
+name: Deply CI
+
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  deploy:
+    runs-on: self-host
+    steps:
+      - name: Copy secrets
+        run: cp $DOTENV_SECRETS_PATH .
+      - name: Build dockers
+        run: docker-compose build
+      - name: Run services
+        run: docker-compose up --detach
