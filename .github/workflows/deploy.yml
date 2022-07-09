@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
       - name: Copy secrets
         run: cp $DOTENV_SECRETS_PATH .
       - name: Build dockers

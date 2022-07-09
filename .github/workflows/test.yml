@@ -9,6 +9,7 @@ jobs:
   test-github-secrets:
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
       - name: Check all variables
         run: |
           if [ -z "$DATABASE_VOLUME_PATH" ]; then echo "DATABASE_VOLUME_PATH is not set"; else echo "DATABASE_VOLUME_PATH is set"; fi
