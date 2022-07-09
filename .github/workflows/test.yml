@@ -7,7 +7,7 @@ on:
 
 jobs:
   test-github-secrets:
-    runs-on: self-host
+    runs-on: self-hosted
     steps:
       - name: Check all variables
         run: |

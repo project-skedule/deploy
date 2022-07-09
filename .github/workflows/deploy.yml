@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-host
+    runs-on: self-hosted
     steps:
       - name: Copy secrets
         run: cp $DOTENV_SECRETS_PATH .
