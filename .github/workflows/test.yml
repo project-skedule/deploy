@@ -1,0 +1,16 @@
+name: Test CI
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: self-host
+    steps:
+      - name: Check all variables
+        run: |
+          if [ -z "$DATABASE_VOLUME_PATH" ]; then echo "DATABASE_VOLUME_PATH is not set"; else echo "DATABASE_VOLUME_PATH is set"; fi
+          if [ -z "$DOTENV_SECRETS_PATH" ]; then echo "DOTENV_SECRETS_PATH is not set"; else echo "DOTENV_SECRETS_PATH is set"; fi
+          if [ -z "$LOGS_VOLUME_PATH" ]; then echo "LOGS_VOLUME_PATH is not set"; else echo "LOGS_VOLUME_PATH is set"; fi
