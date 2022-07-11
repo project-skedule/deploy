@@ -1,0 +1,144 @@
+version: "3.8"
+
+services:
+  # API DATABASE
+  database:
+    # BUILD
+    image: mariadb
+    
+    # PRESTART
+    container_name: skedule-database
+    networks:
+      skedule-database:
+        aliases:
+          - database
+    volumes:
+      - database:/var/lib/mysql
+
+    # RUNTIME
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE_NAME}
+      MARIADB_USER: ${MARIADB_USER_NAME}
+      MARIADB_PASSWORD: ${MARIADB_USER_PASSWORD}
+    healthcheck:
+      test: "/usr/bin/mysql --user=$$MARIADB_USER_NAME --password=$$MARIADB_USER_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 10s
+      retries: 10
+
+  # API ITSELF
+  api:
+    # BUILD
+    build:
+      context: https://${GITHUB_ACCESS}:@github.com/project-skedule/api.git:main
+      dockerfile: Dockerfile
+    image: skedule-api-image
+
+    # PRESTART
+    container_name: skedule-api
+    networks:
+      skedule-api:
+        aliases:
+          - api
+      skedule-database:
+        aliases:
+          - api
+    depends_on:
+      - database
+
+    # RUNTIME
+    restart: unless-stopped
+    environment:
+      DATABASE_NAME: ${MARIADB_DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST:-database}
+      DATABASE_PORT: ${DATABASE_PORT:-3306}
+      DATABASE_USER: ${MARIADB_USER_NAME}
+      DATABASE_PASSWORD: ${MARIADB_USER_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    healthcheck:
+      test: "curl -sS 127.0.0.1:8009 || exit 1"
+      interval: 60s
+      retries: 10
+
+  # TELEGRAM BOT DATABASE
+  redis:
+    # BUILD
+    image: redis:6.2
+
+    # PRESTART
+    container_name: skedule-redis
+    networks:
+      skedule-bot:
+        aliases:
+          - redis/
+    volumes:
+      - redis:/data
+    # RUNTIME
+    restart: unless-stopped
+    healthcheck:
+      test: "redis-cli ping"
+      interval: 10s
+      retries: 10
+
+  # TELEGRAM BOT ITSELF  
+  telegram-bot:
+    # BUILD
+    build:
+      context: https://${GITHUB_ACCESS}:@github.com/project-skedule/telegram-bot.git:main
+      dockerfile: Dockerfile
+    image: skedule-telegram-bot-image
+    
+    # PRESTART
+    container_name: skedule-telegram-bot
+    networks:
+      skedule-bot:
+        aliases:
+          - bot
+      skedule-api:
+        aliases:
+          - bot
+    volumes:
+      - logs:/skedule-telegram/logs
+    depends_on:
+      - redis
+      - api
+
+    # RUNTIME
+    environment:
+      TG_TOKEN: ${TG_TOKEN:-}
+      API_TELEGRAM_ACCOUNT_NAME: ${API_TELEGRAM_ACCOUNT_NAME:-}
+      API_TELEGRAM_ACCOUNT_PASSWORD: ${API_TELEGRAM_ACCOUNT_PASSWORD:-}
+
+    healthcheck:
+      test: "curl -sS 127.0.0.1:8080 || exit 1"
+      interval: 10s
+      retries: 5
+
+networks:
+  skedule-api:
+    ipam:
+      config:
+        - subnet: 172.0.0.0/24
+  skedule-database:
+    ipam:
+      config:
+        - subnet: 216.0.0.0/24
+  skedule-bot:
+      ipam:
+        config:
+          - subnet: 184.0.0.0/24
+
+volumes:
+  database:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${DATABASE_VOLUME_PATH}
+  logs:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${LOGS_VOLUME_PATH}
+  redis:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${REDIS_VOLUME_PATH}
