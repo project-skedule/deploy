@@ -32,7 +32,6 @@ services:
     # BUILD
     build:
       context: https://${GITHUB_ACCESS}:@github.com/project-skedule/api.git:main
-      dockerfile: Dockerfile
     image: skedule-api-image
 
     # PRESTART
@@ -86,7 +85,6 @@ services:
     # BUILD
     build:
       context: https://${GITHUB_ACCESS}:@github.com/project-skedule/telegram-bot.git:main
-      dockerfile: Dockerfile
     image: skedule-telegram-bot-image
     
     # PRESTART
