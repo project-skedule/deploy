@@ -10,15 +10,20 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
+
+      - name: Copy secrets
+        shell: bash
         env:
           DOTENV_SECRETS_PATH: ${{ secrets.DOTENV_SECRETS_PATH }}
+        run: cp $DOTENV_SECRETS_PATH .
+
+      - name: Build dockers
+        shell: bash
+        env:
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
           LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
-
-      - name: Copy secrets
-        run: cp $DOTENV_SECRETS_PATH .
-      - name: Build dockers
         run: docker-compose build
+
       - name: Run services
         run: docker-compose up --detach
