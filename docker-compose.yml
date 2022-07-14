@@ -31,7 +31,7 @@ services:
   api:
     # BUILD
     build:
-      context: https://${GITHUB_ACCESS}:@github.com/project-skedule/api.git:main
+      context: https://github.com/project-skedule/api.git#main
     image: skedule-api-image
 
     # PRESTART
@@ -84,7 +84,7 @@ services:
   telegram-bot:
     # BUILD
     build:
-      context: https://${GITHUB_ACCESS}:@github.com/project-skedule/telegram-bot.git:main
+      context: https://github.com/project-skedule/telegram-bot.git#main
     image: skedule-telegram-bot-image
     
     # PRESTART
