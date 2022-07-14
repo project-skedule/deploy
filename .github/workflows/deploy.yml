@@ -23,7 +23,7 @@ jobs:
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
           LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
-        run: docker-compose build
+        run: docker compose build
 
       - name: Run services
-        run: docker-compose up --detach
+        run: docker compose up --detach
