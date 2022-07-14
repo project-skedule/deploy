@@ -12,8 +12,7 @@ jobs:
       - name: Prepare sources
         shell: bash 
         run: |
-          git config --global url."https://${{ github.token }}@github.com/".insteadOf "git@github.com:"
-          git clone  git@github.com:project-skedule/deploy.git .
+          git clone https://${{ github.token }}@github.com/project-skedule/deploy.git .
           git fetch origin +refs/pull/*:refs/remotes/*
           git checkout ${{ github.ref_name }}
           git submodule update --init --recursive
