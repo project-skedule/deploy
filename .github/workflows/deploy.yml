@@ -3,7 +3,7 @@ name: Deply CI
 on:
   release:
     types:
-      - released
+      - published
 
 jobs:
   deploy:
