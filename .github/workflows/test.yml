@@ -16,7 +16,9 @@ jobs:
           DOTENV_SECRETS_PATH: ${{ secrets.DOTENV_SECRETS_PATH }}
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
           LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
+          REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
         run: |
           if [ -z "$DATABASE_VOLUME_PATH" ]; then echo "DATABASE_VOLUME_PATH is not set"; else echo "DATABASE_VOLUME_PATH is set"; fi
           if [ -z "$DOTENV_SECRETS_PATH" ]; then echo "DOTENV_SECRETS_PATH is not set"; else echo "DOTENV_SECRETS_PATH is set"; fi
           if [ -z "$LOGS_VOLUME_PATH" ]; then echo "LOGS_VOLUME_PATH is not set"; else echo "LOGS_VOLUME_PATH is set"; fi
+          if [ -z "$REDIS_VOLUME_PATH" ]; then echo "REDIS_VOLUME_PATH is not set"; else echo "REDIS_VOLUME_PATH is set"; fi
