@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Prepare sources
-        shell: powershell
+        shell: bash 
         run: |
           git config --global url."https://${{ github.token }}@github.com/".insteadOf "git@github.com:"
           git clone  git@github.com:project-skedule/deploy.git .
