@@ -9,14 +9,10 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Prepare sources
-        shell: bash 
-        run: |
-          rm -rf *
-          git clone https://${{ github.token }}@github.com/project-skedule/deploy.git .
-          git fetch origin +refs/pull/*:refs/remotes/*
-          git checkout ${{ github.ref_name }}
-          git submodule update --init --recursive
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Copy secrets
         shell: bash
