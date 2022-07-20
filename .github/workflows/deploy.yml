@@ -27,9 +27,12 @@ jobs:
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
           LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
-          GITHUB_ACCESS: ${{ github.token }}
-          BUILDKIT_PROGRESS: plain
         run: docker-compose build
 
       - name: Run services
+        shell: bash
+        env:
+          DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
+          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
+          REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
         run: docker-compose up --detach
