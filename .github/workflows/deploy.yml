@@ -25,7 +25,7 @@ jobs:
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
           GITHUB_ACCESS: ${{ github.token }}
           BUILDKIT_PROGRESS: plain
-        run: docker compose build
+        run: docker-compose build
 
       - name: Run services
-        run: docker compose up --detach
+        run: docker-compose up --detach
