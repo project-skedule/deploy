@@ -1,6 +1,6 @@
 [submodule "telegram-bot"]
-	path = telegram-bot
+  path = telegram-boturl
   url = git@github.com:project-skedule/telegram-bot.git#main
 [submodule "api"]
-	path = api
+  path = api
   url = git@github.com:project-skedule/api.git#main
