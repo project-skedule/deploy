@@ -24,6 +24,7 @@ jobs:
           LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
           GITHUB_ACCESS: ${{ github.token }}
+          BUILDKIT_PROGRESS: plain
         run: docker compose build
 
       - name: Run services
