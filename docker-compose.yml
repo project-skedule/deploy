@@ -113,6 +113,58 @@ services:
       interval: 10s
       retries: 5
 
+  frontend-app:
+    # BUILD
+    build:
+      context: frontend-app
+    image: skedule-frontend-app-image
+    
+    # PRESTART
+    container_name: skedule-frontend-app
+    networks:
+      skedule-api:
+        aliases:
+          - app
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+
+    # RUNTIME
+    environment:
+      NODE_ENV: production
+
+    healthcheck:
+      test: "curl -sS 127.0.0.1 || exit 1"
+      interval: 10s
+      retries: 5
+
+  frontend-landing:
+    # BUILD
+    build:
+      context: frontend-landing
+    image: skedule-frontend-landing-image
+    
+    # PRESTART
+    container_name: skedule-frontend-landing
+    networks:
+      skedule-api:
+        aliases:
+          - landing
+    depends_on:
+      - api
+    ports:
+      - "800:80"
+
+    # RUNTIME
+    environment:
+      NODE_ENV: production
+
+    healthcheck:
+      test: "curl -sS 127.0.0.1 || exit 1"
+      interval: 10s
+      retries: 5
+
 networks:
   skedule-api:
     ipam:

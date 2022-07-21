@@ -4,3 +4,9 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/project-skedule/api.git#main
+[submodule "frontend-app"]
+	path = frontend-app
+	url = https://github.com/project-skedule/frontend-app.git#main
+[submodule "frontend-landing"]
+	path = frontend-landing
+	url = https://github.com/project-skedule/frontend-landing.git#main
