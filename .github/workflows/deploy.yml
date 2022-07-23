@@ -25,7 +25,7 @@ jobs:
         shell: bash
         env:
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
-          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
+          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}-${{ github.sha }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
         run: docker-compose build
 
@@ -33,6 +33,6 @@ jobs:
         shell: bash
         env:
           DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
-          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}
+          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}-${{ github.sha }}
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
         run: docker-compose up --detach
