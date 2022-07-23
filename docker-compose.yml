@@ -127,8 +127,6 @@ services:
           - app
     depends_on:
       - api
-    ports:
-      - "80:80"
 
     # RUNTIME
     environment:
@@ -153,8 +151,6 @@ services:
           - landing
     depends_on:
       - api
-    ports:
-      - "800:80"
 
     # RUNTIME
     environment:
