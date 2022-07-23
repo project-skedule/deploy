@@ -3,7 +3,7 @@
 	url = https://github.com/project-skedule/telegram-bot.git#main
 [submodule "api"]
 	path = api
-	url = https://github.com/project-skedule/api.git#main
+	url = https://github.com/project-skedule/api.git#v2.3.0
 [submodule "frontend-app"]
 	path = frontend-app
 	url = https://github.com/project-skedule/frontend-app.git#main
