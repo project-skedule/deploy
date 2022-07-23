@@ -15,6 +15,9 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           submodules: recursive
 
+      - name: Copy nginx settings
+        run: cp nginx.conf /etc/nginx/nginx.conf
+
       - name: Copy secrets
         shell: bash
         env:
