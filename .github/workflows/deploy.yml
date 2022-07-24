@@ -41,7 +41,7 @@ jobs:
         run:
           mkdir $DATABASE_VOLUME_PATH -p
           mkdir $LOGS_VOLUME_PATH -p
-          mkdir REDIS_VOLUME_PATH -p
+          mkdir $REDIS_VOLUME_PATH -p
       
       - name: Build dockers
         shell: bash
