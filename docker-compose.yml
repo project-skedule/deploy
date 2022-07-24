@@ -43,6 +43,8 @@ services:
       skedule-database:
         aliases:
           - api
+    volumes:
+      - logs:/skedule-api/logs
     depends_on:
       - database
 
@@ -104,9 +106,9 @@ services:
 
     # RUNTIME
     environment:
-      TG_TOKEN: ${TG_TOKEN:-}
-      API_TELEGRAM_ACCOUNT_NAME: ${API_TELEGRAM_ACCOUNT_NAME:-}
-      API_TELEGRAM_ACCOUNT_PASSWORD: ${API_TELEGRAM_ACCOUNT_PASSWORD:-}
+      TG_TOKEN: ${TG_TOKEN}
+      API_TELEGRAM_ACCOUNT_NAME: ${API_TELEGRAM_ACCOUNT_NAME}
+      API_TELEGRAM_ACCOUNT_PASSWORD: ${API_TELEGRAM_ACCOUNT_PASSWORD}
 
     healthcheck:
       test: "curl -sS 127.0.0.1:8080 || exit 1"
