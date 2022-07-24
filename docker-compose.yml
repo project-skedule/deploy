@@ -65,7 +65,7 @@ services:
   # TELEGRAM BOT DATABASE
   redis:
     # BUILD
-    image: redis:6.2
+    image: redis:7.0
 
     # PRESTART
     container_name: skedule-redis
