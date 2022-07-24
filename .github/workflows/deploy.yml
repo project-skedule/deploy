@@ -31,6 +31,17 @@ jobs:
           echo "DATABASE_VOLUME_PATH=$DATABASE_VOLUME_PATH" >> .env
           echo "LOGS_VOLUME_PATH=$LOGS_VOLUME_PATH" >> .env
           echo "REDIS_VOLUME_PATH=$REDIS_VOLUME_PATH" >> .env
+
+      - name: Update secrets
+        shell: bash
+        env:
+          DATABASE_VOLUME_PATH: ${{ secrets.DATABASE_VOLUME_PATH }}
+          LOGS_VOLUME_PATH: ${{ secrets.LOGS_VOLUME_PATH }}-${{ github.sha }}
+          REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
+        run:
+          mkdir $DATABASE_VOLUME_PATH -p
+          mkdir $LOGS_VOLUME_PATH -p
+          mkdir REDIS_VOLUME_PATH -p
       
       - name: Build dockers
         shell: bash
