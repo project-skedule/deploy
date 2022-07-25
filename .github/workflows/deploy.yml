@@ -40,8 +40,8 @@ jobs:
           REDIS_VOLUME_PATH: ${{ secrets.REDIS_VOLUME_PATH }}
         run:
           mkdir $DATABASE_VOLUME_PATH -p
-          mkdir api-$LOGS_VOLUME_PATH -p
-          mkdir telegram-$LOGS_VOLUME_PATH -p
+          mkdir $LOGS_VOLUME_PATH-api -p
+          mkdir $LOGS_VOLUME_PATH-telegram -p
           mkdir $REDIS_VOLUME_PATH -p
       
       - name: Build dockers

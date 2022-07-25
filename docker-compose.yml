@@ -187,11 +187,11 @@ volumes:
   logs-telegram:
     driver: local-persist
     driver_opts:
-      mountpoint: telegram-${LOGS_VOLUME_PATH}
+      mountpoint: ${LOGS_VOLUME_PATH}-telegram
   logs-api:
     driver: local-persist
     driver_opts:
-      mountpoint: api-${LOGS_VOLUME_PATH}
+      mountpoint: ${LOGS_VOLUME_PATH}-api
   redis:
     driver: local-persist
     driver_opts:
