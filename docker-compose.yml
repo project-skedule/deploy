@@ -44,7 +44,7 @@ services:
         aliases:
           - api
     volumes:
-      - logs:/skedule-api/logs
+      - logs-api:/skedule-api/logs
     depends_on:
       - database
 
@@ -99,7 +99,7 @@ services:
         aliases:
           - bot
     volumes:
-      - logs:/skedule-telegram/logs
+      - logs-telegram:/skedule-telegram/logs
     depends_on:
       - redis
       - api
@@ -184,10 +184,14 @@ volumes:
     driver: local-persist
     driver_opts:
       mountpoint: ${DATABASE_VOLUME_PATH}
-  logs:
+  logs-telegram:
     driver: local-persist
     driver_opts:
-      mountpoint: ${LOGS_VOLUME_PATH}
+      mountpoint: telegram-${LOGS_VOLUME_PATH}
+  logs-api:
+    driver: local-persist
+    driver_opts:
+      mountpoint: api-${LOGS_VOLUME_PATH}
   redis:
     driver: local-persist
     driver_opts:
